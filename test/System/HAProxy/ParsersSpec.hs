@@ -1,18 +1,20 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE QuasiQuotes #-}
 {-# LANGUAGE NoImplicitPrelude #-}
-module System.HAProxy.TypesSpec (spec) where
+module System.HAProxy.ParsersSpec (spec) where
 
-import Data.ByteString.Char8 (unpack)
+import System.HAProxy.Parsers
 import System.HAProxy.Types
 import SpecHelper
+
+import Data.Attoparsec.Text
 
 spec :: Spec 
 spec = do
   describe "Deserializeable ShowInfoResp" $ do
     it "parses a full example" $
-      let (Success info) = parseByteString parser mempty fullInfoStr
-      in info `shouldBe` fullInfo
+      let info = parseOnly parser fullInfoStr
+      in info `shouldBe` Right fullInfo
 
 
 fullInfoStr = [q|Name: HAProxy

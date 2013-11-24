@@ -8,5 +8,3 @@ import Data.Thyme.Calendar as X
 import Data.Thyme.Clock as X
 import Test.Hspec      as X
 import Text.InterpolatedString.Perl6 as X (q)
-import Text.Trifecta.Parser as X (parseByteString, parseTest, Parser)
-import Text.Trifecta.Result as X (Result(..))
