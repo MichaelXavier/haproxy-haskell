@@ -18,7 +18,7 @@ import qualified Data.Text as T
 import System.HAProxy.Types
 import System.HAProxy.Util
 
-import Debug.Trace
+-- import Debug.Trace
 
 class Deserializeable a where
   parser :: Parser a
@@ -39,7 +39,7 @@ instance Deserializeable ShowInfoResp where
 
       parseValue = takeTill isEndOfLine
 
-      convertPairs hm = traceShow hm $
+      convertPairs hm = 
         ShowInfoResp <$> lu "Name"
                      <*> lu "Version"
                      <*> (parseDay =<< lu "Release_date")
