@@ -32,14 +32,57 @@ import System.HAProxy.Serializers
 import System.HAProxy.Parsers
 import System.HAProxy.Types
 
-showInfo :: (MonadReader HAConfig m, MonadIO m) => m (HAResp ShowInfoResp)
-showInfo = runHAProxyReq ShowInfo
 
 clearCounters :: (MonadReader HAConfig m, MonadIO m) => m (HAResp ())
 clearCounters = runHAProxyReq ClearCounters
 
 clearCountersAll :: (MonadReader HAConfig m, MonadIO m) => m (HAResp ())
 clearCountersAll = runHAProxyReq ClearCountersAll
+
+disableServer :: (MonadReader HAConfig m, MonadIO m)
+                 => ServerRef
+                 ->  m (HAResp ())
+disableServer = runHAProxyReq . DisableServer
+
+
+enableServer :: (MonadReader HAConfig m, MonadIO m)
+                 => ServerRef
+                 ->  m (HAResp ())
+enableServer = runHAProxyReq . EnableServer
+
+-- getWeight :: (MonadReader HAConfig m, MonadIO m)
+--              => ServerRef
+--              ->  m (HAResp ())
+-- getWeight = runHAProxyReq . GetWeight
+
+setWeight :: (MonadReader HAConfig m, MonadIO m)
+             => ServerRef
+             -> WeightRef
+             ->  m (HAResp ())
+setWeight s = runHAProxyReq . GetWeight s
+
+
+showErrors :: (MonadReader HAConfig m, MonadIO m)
+            -> m (HAResp ShowErrorsResp)
+showErrors = runHAProxyReq ShowErrors
+
+showErrorsForProxy :: (MonadReader HAConfig m, MonadIO m)
+                   -> ProxyID
+                   => m (HAResp ShowErrorsResp)
+showErrorsForProxy = runHAProxyReq . ShowErrorsForProxy
+
+showInfo :: (MonadReader HAConfig m, MonadIO m)
+            => m (HAResp ShowInfoResp)
+showInfo = runHAProxyReq ShowInfo
+
+showSessions :: (MonadReader HAConfig m, MonadIO m)
+             => m (HAResp [Session])
+showSessions = runHAProxyReq ShowSessions
+
+showSession :: (MonadReader HAConfig m, MonadIO m)
+             -> SessionID
+             => m (HAResp (Maybe Session))
+showSession = runHAProxyReq ShowSessions
 
 runHAProxyReq :: forall a (m :: * -> *) b.
                  ( MonadIO m
