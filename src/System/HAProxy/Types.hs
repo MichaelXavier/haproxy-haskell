@@ -6,6 +6,8 @@ import Data.Thyme.Calendar (Day)
 import Data.Thyme.Clock (NominalDiffTime)
 
 data ShowInfo = ShowInfo deriving (Show)
+data ClearCounters = ClearCounters deriving (Show)
+data ClearCountersAll = ClearCountersAll deriving (Show)
 
 newtype MemorySize = MB Int deriving (Show, Ord, Eq)
 

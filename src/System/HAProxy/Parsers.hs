@@ -23,6 +23,9 @@ import Debug.Trace
 class Deserializeable a where
   parser :: Parser a
 
+instance Deserializeable () where
+  parser = takeTill isEndOfLine *> pure ()
+
 instance Deserializeable ShowInfoResp where
   parser = e2err =<< convertPairs . HM.fromList <$> parsePairs
     where

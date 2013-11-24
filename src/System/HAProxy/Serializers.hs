@@ -10,3 +10,9 @@ class Serializable a where
 
 instance Serializable ShowInfo where
   serialize = const "show info"
+
+instance Serializable ClearCounters where
+  serialize = const "clear counters"
+
+instance Serializable ClearCountersAll where
+  serialize = const "clear counters all"
